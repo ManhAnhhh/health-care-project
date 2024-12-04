@@ -32,7 +32,8 @@ public class OrderDao {
         String sql = "select * from \"Order\" a";
         Cursor cursor = database.rawQuery(sql, null);
 
-        Log.i(TAG, "getOrders: " + cursor.getCount());  
+        Log.i(TAG, "getOrders: " + cursor.getCount());
+        Log.i(TAG, "getOrders: " + cursor.getCount());
 
         if (cursor != null) {
             cursor.moveToFirst();
