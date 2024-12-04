@@ -23,6 +23,12 @@
 <!--            android:exported="false" />-->
 <!--        -->
         <activity
+            android:name=".OrderInforActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OrdersActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
