@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back2"
+    android:fitsSystemWindows="true"
+    tools:context=".FindDoctorActivity">
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HEALTHCARE"
+        android:textSize="24sp"
+        android:textColor="#ffffff"
+        android:fontFamily="sans-serif-condensed"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Phụ đề -->
+    <TextView
+        android:id="@+id/tv_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Các bác sĩ"
+        android:textSize="18sp"
+        android:textColor="#ffffff"
+        android:fontFamily="sans-serif-light"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Family Physicians -->
+    <LinearLayout
+        android:id="@+id/item_family_physicians"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:background="#330066"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="16dp">
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/family_physicians"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bác sĩ gia đình"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <!-- Dietician -->
+    <LinearLayout
+        android:id="@+id/item_dietician"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:background="#330066"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp">
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/dietician"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chuyên viên dinh dưỡng"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <!-- Dentist -->
+    <LinearLayout
+        android:id="@+id/item_dentist"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:background="#330066"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/item_family_physicians"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="16dp">
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/dentist"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Răng hàng mặt"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <!-- Surgeon -->
+    <LinearLayout
+        android:id="@+id/item_surgeon"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:background="#330066"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/item_dietician"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp">
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/surgeon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bác sĩ phẫu thuật"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <!-- Cardiologists -->
+    <LinearLayout
+        android:id="@+id/item_cardiologists"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:background="#330066"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/item_dentist"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="16dp">
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/cardiologists"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bác sĩ tim mạch"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <!-- Back -->
+    <LinearLayout
+        android:id="@+id/item_back"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:background="#330066"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/item_surgeon"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp">
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quay lại"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
