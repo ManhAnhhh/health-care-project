@@ -16,21 +16,19 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Locale;
 
 import aaacom.example.healthcareproject.dao.OrderDao;
-import aaacom.example.healthcareproject.entities.Medicin;
+import aaacom.example.healthcareproject.entities.Medicine;
 import aaacom.example.healthcareproject.entities.Order;
 
 public class OrderInforActivity extends AppCompatActivity {
     TextView txtvMedicinInfo, txtvTotalAmount;
     Button btnQuayLai, btnConfirm, btnAddQuantity, btnSubQuantity;
     EditText txtCustomerName, txtOrderPlace, txtQuantity;
-    Medicin medicin = null;
+    Medicine medicin = null;
     int totalAmount = 0;
     int quantity = 1;
 

@@ -30,6 +30,7 @@ public class DatabaseUtils extends SQLiteOpenHelper {
         initDataBase();
     }
 
+
     private void initDataBase() {
 //        if (isDataBaseExists()) {
 //            deleteExistingDatabase();
@@ -95,7 +96,7 @@ public class DatabaseUtils extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // ignore
+
     }
 
 }

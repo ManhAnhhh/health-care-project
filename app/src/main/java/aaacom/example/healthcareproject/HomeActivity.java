@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class HomeActivity extends AppCompatActivity {
     CardView cardViewOrder;
+    CardView cardViewDatThuoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +35,14 @@ public class HomeActivity extends AppCompatActivity {
         cardViewOrder.setOnClickListener(v -> {
             startActivity(new Intent(HomeActivity.this, OrdersActivity.class));
         });
+
+        cardViewDatThuoc.setOnClickListener(v -> {
+            startActivity(new Intent(HomeActivity.this, BuyMedicineActivity.class));
+        });
     }
 
     private void getWidgets() {
         cardViewOrder = findViewById(R.id.cardview_Orders);
+        cardViewDatThuoc = findViewById(R.id.cardview_DatThuoc);
     }
 }

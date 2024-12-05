@@ -1,22 +1,19 @@
 package aaacom.example.healthcareproject.entities;
 
-import java.util.Date;
-import java.util.List;
-
 public class Order {
     int id;
     float total_amount;
     String customer_name;
     String order_date;
     String order_place;
-    int medicin_id;
-    String medicin_name;
+    int medicine_id;
+    String medicine_name;
     int quantity;
     int status;
 
     public Order(int quantity, int medicin_id, String order_place, String order_date, String customer_name, float total_amount) {
         this.quantity = quantity;
-        this.medicin_id = medicin_id;
+        this.medicine_id = medicin_id;
         this.order_place = order_place;
         this.order_date = order_date;
         this.customer_name = customer_name;
@@ -25,12 +22,16 @@ public class Order {
 
     public Order(int quantity, int medicin_id, String order_place, String order_date, String customer_name, float total_amount, int id) {
         this.quantity = quantity;
-        this.medicin_id = medicin_id;
+        this.medicine_id = medicin_id;
         this.order_place = order_place;
         this.order_date = order_date;
         this.customer_name = customer_name;
         this.total_amount = total_amount;
         this.id = id;
+    }
+
+    public Order() {
+
     }
 
     public int getId() {
@@ -74,11 +75,11 @@ public class Order {
     }
 
     public int getMedicin_id() {
-        return medicin_id;
+        return medicine_id;
     }
 
     public void setMedicin_id(int medicin_id) {
-        this.medicin_id = medicin_id;
+        this.medicine_id = medicin_id;
     }
 
     public int getQuantity() {
@@ -97,11 +98,11 @@ public class Order {
         this.status = status;
     }
 
-    public String getMedicin_name() {
-        return medicin_name;
+    public String getMedicine_name() {
+        return medicine_name;
     }
 
-    public void setMedicin_name(String medicin_name) {
-        this.medicin_name = medicin_name;
+    public void setMedicine_name(String medicine_name) {
+        this.medicine_name = medicine_name;
     }
 }

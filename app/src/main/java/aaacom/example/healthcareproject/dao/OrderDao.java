@@ -6,14 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
+import aaacom.example.healthcareproject.entities.Medicine;
 import aaacom.example.healthcareproject.entities.Order;
 import aaacom.example.healthcareproject.utils.DatabaseUtils;
 
@@ -25,14 +20,28 @@ public class OrderDao {
         databaseUtils = new DatabaseUtils(context);
     }
 
+    // Check if the medicine exists in the Medicine table
+    public boolean doesMedicineExist(int medicin_id) {
+        SQLiteDatabase db = databaseUtils.getReadableDatabase();
+        String query = "SELECT id FROM Medicine WHERE id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(medicin_id)});
+
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+
+        // Log for debugging
+        Log.d("CartDao", "Checking if medicine exists with id " + medicin_id + ": " + exists);
+
+        return exists;
+    }
+
     public ArrayList<Order> getOrders() {
-        ArrayList<Order> orders = new ArrayList<Order>();
+        ArrayList<Order> orders = new ArrayList<>();
         SQLiteDatabase database = databaseUtils.getReadableDatabase();
 
-        String sql = "select * from \"Order\" a";
+        String sql = "SELECT * FROM \"Order\"";
         Cursor cursor = database.rawQuery(sql, null);
 
-        Log.i(TAG, "getOrders: " + cursor.getCount());
         Log.i(TAG, "getOrders: " + cursor.getCount());
 
         if (cursor != null) {
@@ -55,11 +64,11 @@ public class OrderDao {
         return orders;
     }
 
+    // Create an order (checks if medicin_id exists)
     public void createOrder(Order order) {
         SQLiteDatabase db = databaseUtils.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-
         values.put("total_amount", order.getTotal_amount());
         values.put("customer_name", order.getCustomer_name());
         values.put("order_date", order.getOrder_date());
@@ -68,16 +77,22 @@ public class OrderDao {
         values.put("quantity", order.getQuantity());
         values.put("status", order.getStatus());
 
-        long departmentId = db.insert("\"Order\"", null, values);
+        long orderId = db.insert("\"Order\"", null, values);
+        if (orderId != -1) {
+            Log.i(TAG, "Order created: new order id: " + orderId);
+        } else {
+            Log.e(TAG, "Failed to create order for medicine id: " + order.getMedicin_id());
+        }
+        Log.i(TAG, "Order created: new order id: " + orderId);
 
-        Log.i(TAG, "Order created: new order id: " + departmentId);
     }
 
+    // Delete an order
     public void deleteOrder(int id) {
         SQLiteDatabase db = databaseUtils.getWritableDatabase();
 
         String whereClause = "id=?";
-        String[] whereParams = {id + ""};
+        String[] whereParams = {String.valueOf(id)};
 
         int affectedRecordAmount = db.delete("Order", whereClause, whereParams);
 

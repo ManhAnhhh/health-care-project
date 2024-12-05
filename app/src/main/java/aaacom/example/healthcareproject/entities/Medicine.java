@@ -8,32 +8,32 @@ import androidx.annotation.NonNull;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class Medicin implements Parcelable {
+public class Medicine implements Parcelable {
     int id;
     String name;
     float price;
 
-    public Medicin(int id, String name, float price) {
+    public Medicine(int id, String name, float price) {
         this.id = id;
         this.name = name;
         this.price = price;
     }
 
-    protected Medicin(Parcel in) {
+    protected Medicine(Parcel in) {
         id = in.readInt();
         name = in.readString();
         price = in.readFloat();
     }
 
-    public static final Creator<Medicin> CREATOR = new Creator<Medicin>() {
+    public static final Creator<Medicine> CREATOR = new Creator<Medicine>() {
         @Override
-        public Medicin createFromParcel(Parcel in) {
-            return new Medicin(in);
+        public Medicine createFromParcel(Parcel in) {
+            return new Medicine(in);
         }
 
         @Override
-        public Medicin[] newArray(int size) {
-            return new Medicin[size];
+        public Medicine[] newArray(int size) {
+            return new Medicine[size];
         }
     };
 
