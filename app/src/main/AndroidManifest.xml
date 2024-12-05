@@ -16,7 +16,10 @@
             android:name=".CartBuyMedicineActivity"
             android:exported="false" />
         <activity
-            android:name=".TestActivity"
+            android:name=".FindDoctorActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DoctorListActivity"
             android:exported="true" />
         <activity
             android:name=".BuyMedicineDetailsActivity"
