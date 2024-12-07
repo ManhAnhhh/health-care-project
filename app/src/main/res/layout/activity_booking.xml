@@ -60,7 +60,7 @@
         app:layout_constraintVertical_bias="0.183" />
 
     <EditText
-        android:id="@+id/txtDiachi"
+        android:id="@+id/txtNgayhẹn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -69,7 +69,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Địa chỉ"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:padding="10dp"
         android:textColor="#fff"
         android:textColorHint="#fff"
@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtHoten" />
 
     <EditText
-        android:id="@+id/txtSdt"
+        android:id="@+id/txtGiohen"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -88,7 +88,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Số điện thoại"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:padding="10dp"
 
         android:textColor="#fff"
@@ -97,8 +97,7 @@
 
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDiachi" />
-
+        app:layout_constraintTop_toBottomOf="@+id/txtNgayhẹn" />
     <EditText
         android:id="@+id/txtPhi"
         android:layout_width="300dp"
@@ -109,15 +108,14 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Phí nộp"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:padding="10dp"
         android:textColor="#fff"
         android:textColorHint="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtSdt" />
-
+        app:layout_constraintTop_toBottomOf="@id/txtGiohen" />
     <Button
         android:id="@+id/btnBook"
         android:layout_width="wrap_content"
@@ -183,7 +181,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btnBook"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintHorizontal_bias="0.187"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnNgay"
         app:layout_constraintVertical_bias="0.0" />
@@ -197,7 +196,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btnBook"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.781"
+        app:layout_constraintHorizontal_bias="0.756"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnNgay"
         app:layout_constraintVertical_bias="0.0" />

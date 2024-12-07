@@ -9,7 +9,7 @@
     <!-- Dòng hiển thị tên khách hàng -->
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingBottom="8dp">
 
         <TextView
@@ -17,16 +17,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_span="2"
-            android:text="Tên người dùng"
+            android:text="Bác sĩ"
             android:textColor="@android:color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
     </TableRow>
 
-    <!-- Dòng hiển thị loại thuốc và số lượng -->
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/txtDiachi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Địa chỉ:"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtSdt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SĐT:"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingBottom="8dp">
 
         <TextView
@@ -34,7 +58,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Loại thuốc"
+            android:text="Ngày hẹn:"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp" />
 
@@ -43,28 +67,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="x10"
-            android:textAlignment="textEnd"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
-    </TableRow>
-
-    <!-- Dòng hiển thị ngày đặt -->
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="8dp">
-
-        <TextView
-            android:id="@+id/txtv_NgayDat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_span="2"
-            android:text="Ngày đặt: 12/06/2024"
+            android:text="Giờ hẹn:"
+            android:textAlignment="textStart"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp" />
     </TableRow>
+
+    <!-- Dòng hiển thị loại thuốc và số lượng -->
+
+    <!-- Dòng hiển thị ngày đặt -->
 
     <!-- Dòng hiển thị thành tiền -->
     <TableRow

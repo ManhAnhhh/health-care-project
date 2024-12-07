@@ -30,14 +30,14 @@ public class OrdersActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_orders);
 
-        btnBack = findViewById(R.id.btn_Back);
+        btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(view -> {
             finish();
         });
 
         orderDao = new OrderDao(this);
 
-        lv_Orders = findViewById(R.id.lv_Orders);
+        lv_Orders = findViewById(R.id.lvLichkham);
         adapter = new OrderAdapter(this, R.layout.order_item_list_view, orders);
         lv_Orders.setAdapter(adapter);
 

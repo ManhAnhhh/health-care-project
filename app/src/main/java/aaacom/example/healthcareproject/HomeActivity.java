@@ -14,6 +14,7 @@ public class HomeActivity extends AppCompatActivity {
     CardView cardViewOrder;
     CardView cardViewDatThuoc;
     CardView cardViewFindDoctor;
+    CardView cardViewLichKham;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +44,16 @@ public class HomeActivity extends AppCompatActivity {
         cardViewFindDoctor.setOnClickListener(v -> {
             startActivity(new Intent(HomeActivity.this, FindDoctorActivity.class));
         });
+        cardViewLichKham.setOnClickListener(v -> {
+            startActivity(new Intent(HomeActivity.this, BookingDetails.class));
+        });
     }
 
     private void getWidgets() {
         cardViewOrder = findViewById(R.id.cardview_Orders);
         cardViewDatThuoc = findViewById(R.id.cardview_DatThuoc);
         cardViewFindDoctor = findViewById(R.id.cardView_FindDoctor);
+        cardViewLichKham = findViewById(R.id.cardview_LichKham);
+
     }
 }

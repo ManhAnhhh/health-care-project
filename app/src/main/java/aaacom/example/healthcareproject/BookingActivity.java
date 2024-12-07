@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -44,24 +45,22 @@ public class BookingActivity extends AppCompatActivity {
 
         getWidget();
 
-        txtHoten.setKeyListener(null);
-        txtDiachi.setKeyListener(null);
-        txtSdt.setKeyListener(null);
-        txtPhi.setKeyListener(null);
         txtNgay.setText(getDate());
         txtGio.setText(getHour());
 
-        /*Intent it = getIntent();
-        String hoten = it.getStringExtra("hoten");
-        String diachi = it.getStringExtra("diachi");
-        String sdt = it.getStringExtra("sdt");
-        String phi = it.getStringExtra("phi");
+        // Nhận dữ liệu từ Intent
+        Intent intent = getIntent();
+        int Id = intent.getIntExtra("DoctorId", -1);
+        String name = intent.getStringExtra("DoctorName");
+        String contact = intent.getStringExtra("DoctorContact");
+        String address = intent.getStringExtra("HospitalAddress");
+        double fees = intent.getDoubleExtra("DoctorFee",0.0);
 
-        txtHoten.setText(hoten);
-        txtDiachi.setText(diachi);
-        txtSdt.setText(sdt);
-        txtPhi.setText("Phí: " + phi);*/
-
+        txtHoten.setText("Bác sĩ: "+name);
+        txtDiachi.setText("Địa chỉ khám: "+address);
+        txtSdt.setText("Chuyên khoa: "+contact);
+        txtPhi.setText("Phí khám: "+fees + " VND");
+      
         //Xử lý btnNgay
         btnNgay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +82,7 @@ public class BookingActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(BookingActivity.this, DoctorListActivity.class);
                 startActivity(intent);
             }
         });
@@ -96,49 +95,43 @@ public class BookingActivity extends AppCompatActivity {
                 String diachi = txtDiachi.getText().toString().trim();
                 String sdt = txtSdt.getText().toString().trim();
                 String phi = txtPhi.getText().toString().trim();
-                String ngay = txtNgay.getText().toString().trim();
                 String gio = txtGio.getText().toString().trim();
+                String ngay = txtNgay.getText().toString().trim(); // Đừng quên khai báo biến ngày
+                // Kiểm tra thông tin nhập vào
 
-                // Kiểm tra dữ liệu đầu vào
                 if (hoten.isEmpty() || diachi.isEmpty() || sdt.isEmpty() || phi.isEmpty() || ngay.isEmpty() || gio.isEmpty()) {
                     Toast.makeText(BookingActivity.this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+                Intent intent = getIntent();
+                if (Id == -1) { // Kiểm tra ID bác sĩ
+                    Toast.makeText(BookingActivity.this, "Lỗi: Không tìm thấy bác sĩ!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 try {
-                    // Lấy DoctorId từ Intent (giả sử đã có ID bác sĩ truyền vào từ MainActivity hoặc màn hình trước)
-                    Intent intent = getIntent();
-                    int doctorId = intent.getIntExtra("DoctorId", -1); // Giả sử truyền DoctorId qua Intent
-
-                    // Lấy UserId (có thể từ session hoặc từ đăng nhập, ví dụ UserId là 1)
-                    int userId = 1; // Bạn có thể thay bằng cách lấy thông tin người dùng từ hệ thống đăng nhập
-
-                    // Kiểm tra giá trị DoctorId hợp lệ
-                    if (doctorId == -1) {
-                        Toast.makeText(BookingActivity.this, "Lỗi: Không tìm thấy bác sĩ!", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    // Tạo đối tượng Booking
+                    int userId = 1; // Đặt giá trị userId tạm thời hoặc lấy từ người dùng hiện tại
                     Booking booking = new Booking();
-                    booking.setDoctorId(doctorId); // Lấy DoctorId từ Intent
-                    booking.setUserId(userId); // Lấy UserId từ session hoặc đăng nhập
+                    booking.setDoctorId(Id);
+                    booking.setUserId(userId);
                     booking.setDate(ngay);
                     booking.setTime(gio);
 
-                    // Lưu vào database thông qua DAO
                     BookingDao bookingDao = new BookingDao(getApplicationContext());
-                    bookingDao.createBooking(booking);
 
-                    // Hiển thị thông báo
+                    // Kiểm tra lịch đặt đã tồn tại hay chưa
+                    if (bookingDao.isBookingExists(Id, userId, ngay, gio)) {
+                        Toast.makeText(BookingActivity.this, "Lịch hẹn đã tồn tại!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Thêm lịch đặt nếu chưa tồn tại
+                    bookingDao.createBooking(booking);
                     Toast.makeText(BookingActivity.this, "Đặt lịch thành công!", Toast.LENGTH_SHORT).show();
 
-                    // Chuyển về trang chính hoặc refresh giao diện
-                    Intent intentBack = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intentBack);
-
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.e("BookingActivity", "Lỗi: ", e);
                     Toast.makeText(BookingActivity.this, "Đặt lịch thất bại. Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -225,8 +218,8 @@ public class BookingActivity extends AppCompatActivity {
 
     private void getWidget() {
         txtHoten = findViewById(R.id.txtHoten);
-        txtDiachi = findViewById(R.id.txtDiachi);
-        txtSdt = findViewById(R.id.txtSdt);
+        txtDiachi = findViewById(R.id.txtNgayhẹn);
+        txtSdt = findViewById(R.id.txtGiohen);
         txtPhi = findViewById(R.id.txtPhi);
         btnBook = findViewById(R.id.btnBook);
         btnBack = findViewById(R.id.btnBack);

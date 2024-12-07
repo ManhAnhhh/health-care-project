@@ -20,45 +20,138 @@ public class BookingDao {
         databaseUtils = new DatabaseUtils(context);
     }
 
-    // Phương thức thêm lịch khám bệnh vào cơ sở dữ liệu
-    public void createBooking(Booking booking) {
-        SQLiteDatabase db = databaseUtils.getWritableDatabase();
+    // Phương thức kiểm tra xem đơn đặt lịch khám đã tồn tại
+    public boolean isBookingExists(int doctorId, int userId, String date, String time) {
+        SQLiteDatabase db = databaseUtils.getReadableDatabase();
+        Cursor cursor = null;
 
-        ContentValues values = new ContentValues();
-        values.put("DoctorId", booking.getDoctorId());
-        values.put("UserId", booking.getUserId());
-        values.put("Date", booking.getDate());
-        values.put("Time", booking.getTime());
+        try {
+            // Câu lệnh SQL để kiểm tra xem lịch khám có tồn tại không
+            String query = "SELECT COUNT(*) FROM Booking WHERE DoctorId = ? AND UserId = ? AND Date = ? AND Time = ?";
+            String[] selectionArgs = {
+                    String.valueOf(doctorId),
+                    String.valueOf(userId),
+                    date,
+                    time
+            };
 
-        long bookingId = db.insert("Booking", null, values); // "Booking" là tên bảng trong CSDL
-        Log.i(TAG, "Booking created: new booking id: " + bookingId);
+            cursor = db.rawQuery(query, selectionArgs);
+
+            if (cursor.moveToFirst()) {
+                // Nếu COUNT(*) > 0, lịch đã tồn tại
+                return cursor.getInt(0) > 0;
+            }
+            return false;
+        } catch (Exception e) {
+            Log.e(TAG, "Error checking booking existence: " + e.getMessage());
+            return false;
+        } finally {
+            if (cursor != null) cursor.close();
+            if (db != null) db.close();
+        }
     }
 
-    // Phương thức lấy tất cả lịch khám từ cơ sở dữ liệu
-    public ArrayList<Booking> getBookings() {
-        ArrayList<Booking> bookings = new ArrayList<>();
-        SQLiteDatabase database = databaseUtils.getReadableDatabase();
 
-        String sql = "SELECT * FROM Booking";
-        Cursor cursor = database.rawQuery(sql, null);
+    public void createBooking(Booking booking) {
+        SQLiteDatabase db = null;
+        try {
+            db = databaseUtils.getWritableDatabase();
 
-        Log.i(TAG, "getBookings: " + cursor.getCount());
+            // Khởi tạo ContentValues để chèn dữ liệu vào bảng
+            ContentValues values = new ContentValues();
+            values.put("DoctorId", booking.getDoctorId());
+            values.put("UserId", booking.getUserId());
+            values.put("Date", booking.getDate());
+            values.put("Time", booking.getTime());
 
-        if (cursor != null && cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                @SuppressLint("Range") int bookingId = cursor.getInt(cursor.getColumnIndex("BookingId"));
-                @SuppressLint("Range") int doctorId = cursor.getInt(cursor.getColumnIndex("DoctorId"));
-                @SuppressLint("Range") int userId = cursor.getInt(cursor.getColumnIndex("UserId"));
-                @SuppressLint("Range") String date = cursor.getString(cursor.getColumnIndex("Date"));
-                @SuppressLint("Range") String time = cursor.getString(cursor.getColumnIndex("Time"));
+            // Thực hiện lệnh insert để chèn dữ liệu vào bảng Booking
+            long bookingId = db.insert("Booking", null, values);
 
-                bookings.add(new Booking(bookingId, doctorId, userId, date, time));
-                cursor.moveToNext();
+            // Kiểm tra kết quả và ghi log
+            if (bookingId == -1) {
+                Log.e(TAG, "Failed to insert booking");
+            } else {
+                Log.i(TAG, "Booking created: new booking id: " + bookingId);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error creating booking: " + e.getMessage());
+        } finally {
+            if (db != null && db.isOpen()) {
+                db.close();  // Đảm bảo đóng cơ sở dữ liệu sau khi sử dụng
             }
         }
-        cursor.close();
+    }
+
+
+
+    public ArrayList<Booking> getBookings(boolean includeDoctorName) {
+        ArrayList<Booking> bookings = new ArrayList<>();
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+
+        try {
+            db = databaseUtils.getReadableDatabase();
+
+            String query = includeDoctorName
+                    ? "SELECT Booking.*, Doctor.name, Doctor.hospital_address, Doctor.contact, Doctor.fee " +
+                    "FROM Booking " +
+                    "LEFT JOIN Doctor ON Booking.DoctorId = Doctor.Id" // JOIN giữa Booking và Doctor
+                    : "SELECT * FROM Booking";
+
+            cursor = db.rawQuery(query, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    Booking booking = mapCursorToBooking(cursor);
+                    bookings.add(booking);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error retrieving bookings: " + e.getMessage());
+        } finally {
+            if (cursor != null) cursor.close();
+            if (db != null) db.close();
+        }
+
         return bookings;
+    }
+
+
+
+    @SuppressLint("Range")
+    private Booking mapCursorToBooking(Cursor cursor) {
+        Booking booking = new Booking();
+
+        // Ánh xạ các cột từ cursor vào đối tượng Booking
+        booking.setBookingId(cursor.getInt(cursor.getColumnIndex("BookingId")));
+        booking.setDoctorId(cursor.getInt(cursor.getColumnIndex("DoctorId")));
+        booking.setUserId(cursor.getInt(cursor.getColumnIndex("UserId")));
+        booking.setDate(cursor.getString(cursor.getColumnIndex("Date")));
+        booking.setTime(cursor.getString(cursor.getColumnIndex("Time")));
+
+        // Ánh xạ tên bác sĩ từ JOIN
+        if (cursor.getColumnIndex("name") != -1) {
+            String doctorName = cursor.getString(cursor.getColumnIndex("name"));
+            // Sử dụng tên bác sĩ ở đây nếu cần
+        }
+
+        // Ánh xạ các thông tin khác từ bảng Doctor
+        if (cursor.getColumnIndex("hospital_address") != -1) {
+            String address = cursor.getString(cursor.getColumnIndex("hospital_address"));
+            // Xử lý địa chỉ ở đây
+        }
+
+        if (cursor.getColumnIndex("contact") != -1) {
+            String phoneNumber = cursor.getString(cursor.getColumnIndex("contact"));
+            // Xử lý số điện thoại ở đây
+        }
+
+        if (cursor.getColumnIndex("fee") != -1) {
+            double fee = cursor.getDouble(cursor.getColumnIndex("fee"));
+            // Xử lý phí ở đây
+        }
+
+        return booking;
     }
 
     // Phương thức xóa lịch khám theo BookingId

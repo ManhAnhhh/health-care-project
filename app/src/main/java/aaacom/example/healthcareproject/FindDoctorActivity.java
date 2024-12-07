@@ -2,6 +2,7 @@ package aaacom.example.healthcareproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
@@ -22,12 +23,20 @@ public class FindDoctorActivity extends AppCompatActivity {
         LinearLayout itemDentist = findViewById(R.id.item_dentist);
         LinearLayout itemSurgeon = findViewById(R.id.item_surgeon);
         LinearLayout itemCardiologists = findViewById(R.id.item_cardiologists);
+        LinearLayout itemBack = findViewById(R.id.item_back);
 
         itemFamilyPhysicians.setOnClickListener(v -> openDoctorList("Bác sĩ gia đình"));
         itemDietician.setOnClickListener(v -> openDoctorList("Chuyên viên dinh dưỡng"));
         itemDentist.setOnClickListener(v -> openDoctorList("Răng hàm mặt"));
         itemSurgeon.setOnClickListener(v -> openDoctorList("Bác sĩ phẫu thuật"));
         itemCardiologists.setOnClickListener(v -> openDoctorList("Bác sĩ tim mạch"));
+        itemBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FindDoctorActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void openDoctorList(String specialization) {
         Intent intent = new Intent(this, DoctorListActivity.class);

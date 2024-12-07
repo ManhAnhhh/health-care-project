@@ -14,6 +14,7 @@ public class Booking {
         DoctorId = doctorId;
         UserId = userId;
         Date = date;
+        Time = time;
     }
 
     public int getBookingId() {
