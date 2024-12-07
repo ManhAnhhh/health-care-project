@@ -2,20 +2,25 @@ package aaacom.example.healthcareproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import aaacom.example.healthcareproject.dao.MedicineDao;
 import aaacom.example.healthcareproject.entities.Medicine;
+import aaacom.example.healthcareproject.utils.MenuEventUtil;
 
 public class BuyMedicineActivity extends AppCompatActivity {
-
+    Toolbar tbr_buy_meddicine;
     ArrayList<HashMap<String, String>> list;
     SimpleAdapter sa;
     ListView lst;
@@ -28,9 +33,11 @@ public class BuyMedicineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_medicine);
 
+        tbr_buy_meddicine = findViewById(R.id.tbr_buy_meddicine);
+        setSupportActionBar(tbr_buy_meddicine);
+        tbr_buy_meddicine.setNavigationOnClickListener(v -> onBackPressed());
+
         lst = findViewById(R.id.listViewBM);
-        Button btnBack = findViewById(R.id.buttonBMBack);
-        Button btnGoToCart = findViewById(R.id.buttonBMGoToCart);
 
         medicineDao = new MedicineDao(this);
 
@@ -38,10 +45,7 @@ public class BuyMedicineActivity extends AppCompatActivity {
         ArrayList<Medicine> medicines = medicineDao.getMedicines();
         list = new ArrayList<>();
 
-
-
         adapter = new MedicineAdapter(this, R.layout.medicine_item_list_view, medicines);
-
         medicineDao = new MedicineDao(this);
         
 
@@ -65,14 +69,24 @@ public class BuyMedicineActivity extends AppCompatActivity {
                 intent.putExtra("price", medicines.get(i).getPrice());
                 startActivity(intent);
             });
-        // Button listeners
-        btnGoToCart.setOnClickListener(view -> {
+    }
 
-            startActivity(new Intent(BuyMedicineActivity.this, CartBuyMedicineActivity.class));
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
 
-        btnBack.setOnClickListener(view -> {
-            startActivity(new Intent(BuyMedicineActivity.this, HomeActivity.class));
-        });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return MenuEventUtil.handleMenuEvent(item, this);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        // Xử lý khi nhấn nút quay lại
+        onBackPressed(); // Quay lại màn hình trước
+        return true;
     }
 }

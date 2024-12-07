@@ -20,9 +20,10 @@ public class Order {
         this.total_amount = total_amount;
     }
 
-    public Order(int quantity, int medicin_id, String order_place, String order_date, String customer_name, float total_amount, int id) {
+    public Order(int quantity, int medicin_id, String medicine_name, String order_place, String order_date, String customer_name, float total_amount, int id) {
         this.quantity = quantity;
         this.medicine_id = medicin_id;
+        this.medicine_name = medicine_name;
         this.order_place = order_place;
         this.order_date = order_date;
         this.customer_name = customer_name;

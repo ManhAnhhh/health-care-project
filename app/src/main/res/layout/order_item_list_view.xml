@@ -2,8 +2,8 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#37FFFFFF"
     android:padding="16dp"
-    android:background="@android:color/white"
     android:stretchColumns="1">
 
     <!-- Dòng hiển thị tên khách hàng -->
@@ -13,7 +13,7 @@
         android:paddingBottom="8dp">
 
         <TextView
-            android:id="@+id/txtBacsi"
+            android:id="@+id/txtv_CustomerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_span="2"
@@ -30,16 +30,16 @@
         android:paddingBottom="8dp">
 
         <TextView
-            android:id="@+id/txtNgayhẹn"
+            android:id="@+id/txtv_LoaiThuoc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Loại thuốc"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="#2F2F2F"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/txtGiohen"
+            android:id="@+id/txtv_SoLuong"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -62,7 +62,7 @@
             android:layout_marginStart="4dp"
             android:layout_span="2"
             android:text="Ngày đặt: 12/06/2024"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="#3C3C3C"
             android:textSize="14sp" />
     </TableRow>
 
@@ -73,7 +73,7 @@
         android:paddingTop="10dp">
 
         <TextView
-            android:id="@+id/txtThanhtien"
+            android:id="@+id/txtv_ThanhTien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_span="2"

@@ -35,17 +35,17 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         convertView = inflater.inflate(LayoutId, null);
 
         if (List.size() > 0 && position >= 0) {
-            final TextView txtv_CustomerName = convertView.findViewById(R.id.txtBacsi);
-            final TextView txtv_LoaiThuoc = convertView.findViewById(R.id.txtNgayhẹn);
-            final TextView txtv_SoLuong = convertView.findViewById(R.id.txtGiohen);
+            final TextView txtv_CustomerName = convertView.findViewById(R.id.txtv_CustomerName);
+            final TextView txtv_LoaiThuoc = convertView.findViewById(R.id.txtv_LoaiThuoc);
+            final TextView txtv_SoLuong = convertView.findViewById(R.id.txtv_SoLuong);
             final TextView txtv_NgayDat = convertView.findViewById(R.id.txtv_NgayDat);
-            final TextView txtv_ThanhTien = convertView.findViewById(R.id.txtThanhtien);
+            final TextView txtv_ThanhTien = convertView.findViewById(R.id.txtv_ThanhTien);
 
             final View view = convertView;
             final Order order = List.get(position);
 
             txtv_CustomerName.setText(order.getCustomer_name().toString());
-            txtv_LoaiThuoc.setText("Thuốc: " + order.getMedicin_id());
+            txtv_LoaiThuoc.setText("Thuốc: " + order.getMedicine_name());
             txtv_SoLuong.setText("x" + order.getQuantity());
             txtv_NgayDat.setText("Ngày đặt: " +order.getOrder_date().toString());
 

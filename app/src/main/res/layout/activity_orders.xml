@@ -1,65 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back1"
+    android:orientation="vertical"
     tools:context=".OrdersActivity">
 
-    <TextView
-        android:id="@+id/tv_Logo"
-        android:layout_width="wrap_content"
+    <!-- Logo Section -->
+    <!-- Material Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tbr_Orders"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="24/7 Healthcare"
-        android:textColor="@android:color/holo_purple"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.045" />
+        android:background="#80FFFFFF"
+        android:backgroundTint="#7C17FF"
+        android:elevation="4dp"
+        app:navigationIcon="@drawable/ic_back_arrow"
+        app:title="Đơn đặt hàng của tôi!"
+        app:titleTextColor="@android:color/white" />
 
-    <TextView
-        android:id="@+id/tv_ActivityTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ĐƠN ĐẶT HÀNG"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_Logo"
-        app:layout_constraintVertical_bias="0.09" />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_Logo"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        android:text="24/7 Healthcare"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@android:color/holo_purple"-->
+<!--        android:textSize="34sp"-->
+<!--        android:textStyle="bold" />-->
 
+<!--     Activity Title -->
+<!--    <TextView-->
+<!--        android:id="@+id/tv_ActivityTitle"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:text="ĐƠN ĐẶT HÀNG"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@android:color/white"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold" />-->
+
+    <!-- ListView Section -->
     <ListView
-        android:id="@+id/lvLichkham"
-        android:layout_width="0dp"
-        android:layout_height="540dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_ActivityTitle"
-        app:layout_constraintVertical_bias="0.273" >
+        android:id="@+id/lv_Orders"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:background="#84FFFFFF"
+        android:elevation="4dp"
+        android:padding="8dp" />
 
-    </ListView>
-
-    <!-- Button sử dụng MaterialButton -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Quay lại"
-        android:backgroundTint="@color/purple_500"
-        android:textColor="@color/white"
-        app:cornerRadius="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Back Button -->
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/btn_Back"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        android:backgroundTint="@color/purple_500"-->
+<!--        android:elevation="4dp"-->
+<!--        android:text="Quay lại"-->
+<!--        android:textColor="@android:color/white"-->
+<!--        android:textStyle="bold"-->
+<!--        app:cornerRadius="8dp" />-->
+</LinearLayout>

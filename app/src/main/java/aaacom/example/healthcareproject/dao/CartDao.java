@@ -38,6 +38,7 @@ public class CartDao {
         values.put("orderDate", cart.getOrderDate());
         values.put("orderPlace", cart.getOrderPlace());
         values.put("quantity", cart.getQuantity()); // Add the quantity to be inserted
+        values.put("medicine_id", cart.getMedicine_id());
 
         // Query to check if the product already exists in the cart for the same customer
         String query = "SELECT id, quantity FROM Cart WHERE customerName = ? AND productName = ?";

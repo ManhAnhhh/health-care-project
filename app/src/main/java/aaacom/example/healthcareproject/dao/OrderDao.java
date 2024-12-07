@@ -39,7 +39,8 @@ public class OrderDao {
         ArrayList<Order> orders = new ArrayList<>();
         SQLiteDatabase database = databaseUtils.getReadableDatabase();
 
-        String sql = "SELECT * FROM \"Order\"";
+        String sql = "select a.Id, a.total_amount, a.customer_name, a.order_date, a.order_place, a.medicin_id, b.name as medicine_name, a.quantity, a.status\n" +
+                "from \"Order\" a left join \"Medicine\" b on a.medicin_id = b.id order by a.order_date desc";
         Cursor cursor = database.rawQuery(sql, null);
 
         Log.i(TAG, "getOrders: " + cursor.getCount());
@@ -53,9 +54,10 @@ public class OrderDao {
                 String order_date = cursor.getString(3);
                 String order_place = cursor.getString(4);
                 int medicin_id = cursor.getInt(5);
-                int quantity = cursor.getInt(6);
+                String medicin_name = cursor.getString(6);
+                int quantity = cursor.getInt(7);
 
-                orders.add(new Order(quantity, medicin_id, order_place, order_date, customer_name, total_amount, Id));
+                orders.add(new Order(quantity, medicin_id, medicin_name, order_place, order_date, customer_name, total_amount, Id));
                 cursor.moveToNext();
             }
         }
@@ -84,7 +86,6 @@ public class OrderDao {
             Log.e(TAG, "Failed to create order for medicine id: " + order.getMedicin_id());
         }
         Log.i(TAG, "Order created: new order id: " + orderId);
-
     }
 
     // Delete an order

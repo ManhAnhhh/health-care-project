@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -28,8 +29,6 @@ import aaacom.example.healthcareproject.entities.Cart;
 import aaacom.example.healthcareproject.entities.Order;
 
 public class CartBuyMedicineActivity extends AppCompatActivity {
-
-
     SimpleAdapter sa;
     TextView tvTotal;
     ListView lst;
@@ -39,6 +38,10 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
     private String[][] packages = {};
     private CartAdapter adapter;
 
+    CartDao cartDao;
+    OrderDao orderDao;
+
+    float total_amount = 0.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +58,9 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         String username = sharedPreferences.getString("username", "testuser"); // Default to "testuser" if not set
 
-        CartDao cartDao = new CartDao(this);
+        cartDao = new CartDao(this);
         ArrayList<Cart> cartItems = cartDao.getCartItems();
-
+        orderDao = new OrderDao(CartBuyMedicineActivity.this);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -65,7 +68,6 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
             return insets;
         });
 
-        float totalAmount = 0.0f;
         adapter = new CartAdapter(this, cartItems, new CartAdapter.OnSelectionChangedListener() {
             @Override
             public void onSelectionChanged(ArrayList<Cart> selectedItems) {
@@ -75,14 +77,10 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
         });
         lst.setAdapter(adapter);
 
-
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(CartBuyMedicineActivity.this, BuyMedicineActivity.class));
-            }
+        btnBack.setOnClickListener(v -> {
+            finish();
         });
+
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,30 +96,17 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
                     return; // Exit method if no items are selected
                 }
 
-                // Initialize DAOs
-                OrderDao orderDao = new OrderDao(CartBuyMedicineActivity.this);
-                CartDao cartDao = new CartDao(CartBuyMedicineActivity.this);
-
                 // Calculate total amount based on selected items
-                float totalAmount = 0.0f;
-                for (Cart item : selectedItems) {
-                    totalAmount += item.getPrice() * item.getQuantity(); // Calculate total for selected items
-                }
-
-                tvTotal.setText(String.format("Total Cost: $%.2f", totalAmount)); // Update total cost display
+//                float totalAmount = 0.0f;
+//                for (Cart item : selectedItems) {
+//                    totalAmount += item.getPrice() * item.getQuantity(); // Calculate total for selected items
+//                }
+//                tvTotal.setText(String.format("Total Cost: $%.2f", totalAmount)); // Update total cost display
 
                 // Process each selected item and create an order
                 for (Cart item : selectedItems) {
-                    Order order = new Order();
-                    order.setCustomer_name(item.getCustomerName());
-                    order.setMedicin_id(item.getMedicine_id()); // Set medicine ID
-                    order.setTotal_amount(item.getPrice()); // Set total amount
-                    order.setOrder_date(dateButton.getText().toString()); // Set order date
-                    order.setOrder_place(item.getOrderPlace()); // Set order place
-                    order.setQuantity(item.getQuantity()); // Set quantity
-                    order.setMedicine_name(item.getProductName());
+                    Order order = new Order(item.getQuantity(), item.getMedicine_id(), item.getOrderPlace(), item.getOrderDate(), item.getCustomerName(), total_amount);
 
-                    // Save the order in the database
                     orderDao.createOrder(order);
                 }
 
@@ -132,8 +117,8 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
 
                 // Show confirmation dialog
                 new AlertDialog.Builder(CartBuyMedicineActivity.this)
-                        .setTitle("Checkout Successful")
-                        .setMessage("Your order has been placed.")
+                        .setTitle("Đặt hàng mua thuốc!")
+                        .setMessage("Đặt mua thuốc thành công!\\nBạn sẽ được chuyển sang màn hình đơn hàng sau 5 giây.")
                         .setPositiveButton("OK", (dialog, which) -> {
                             // After successful checkout, refresh the cart list and update the adapter
                             ArrayList<Cart> updatedCartItems = cartDao.getCartItems(); // Get updated cart items
@@ -142,8 +127,11 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
                         })
                         .show();
 
-                // Optionally, navigate to another activity (e.g., HomeActivity)
-                startActivity(new Intent(CartBuyMedicineActivity.this, HomeActivity.class));
+                // Start a delayed task to navigate to OrderActivity after 5 seconds
+                new Handler().postDelayed(() -> {
+                    startActivity(new Intent(CartBuyMedicineActivity.this, OrdersActivity.class));
+                    finish(); // Close the current activity if no longer needed
+                }, 5000); // Delay in milliseconds (5 seconds)
             }
         });
 
@@ -156,12 +144,12 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
         });
 
     }
+
     private void updateTotalCost(ArrayList<Cart> selectedItems) {
-        float totalAmount = 0.0f;
         for (Cart item : selectedItems) {
-            totalAmount += item.getPrice() * item.getQuantity(); // Calculate total for selected items
+            total_amount += item.getPrice() * item.getQuantity(); // Calculate total for selected items
         }
-        tvTotal.setText(String.format("Total Cost: $%.2f", totalAmount)); // Update total cost display
+        tvTotal.setText(String.format("Total Cost: $%.2f", total_amount)); // Update total cost display
     }
     private void initDatePicker(){
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {

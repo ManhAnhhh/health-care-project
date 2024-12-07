@@ -26,12 +26,16 @@ public class BuyMedicineDetailsActivity extends AppCompatActivity {
     EditText eDetails;
     Button btnAddToCart, btnBack;
     OrderDao orderDao;
+    CartDao cartDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_buy_medicine_details);
+
+        orderDao = new OrderDao(this);
+        cartDao = new CartDao(this);
 
         tvPackageName = findViewById(R.id.textViewBMDPackageName);
         eDetails = findViewById(R.id.editTextBMDTextMultiLine);
@@ -48,15 +52,8 @@ public class BuyMedicineDetailsActivity extends AppCompatActivity {
         eDetails.setText(intent.getStringExtra("name"));
         tvTotalCost.setText("Total Cost: " + String.valueOf(intent.getFloatExtra("price",0.0f)) + "\n");
 
-        orderDao = new OrderDao(this);
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(
-                        new Intent(BuyMedicineDetailsActivity.this, BuyMedicineActivity.class)
-                );
-            }
+        btnBack.setOnClickListener(v -> {
+            finish();
         });
 
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
@@ -86,17 +83,12 @@ public class BuyMedicineDetailsActivity extends AppCompatActivity {
                         ", Quantity: " + cart.getQuantity());
 
                 // Add to cart
-                CartDao cartDao = new CartDao(BuyMedicineDetailsActivity.this);
                 cartDao.addToCart(cart); // This will either update the quantity or insert a new item
                 Toast.makeText(getApplicationContext(), "Added to cart", Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(BuyMedicineDetailsActivity.this, BuyMedicineActivity.class));
             }
         });
-
-
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

@@ -30,7 +30,6 @@ public class DatabaseUtils extends SQLiteOpenHelper {
         initDataBase();
     }
 
-
     private void initDataBase() {
 //        if (isDataBaseExists()) {
 //            deleteExistingDatabase();
