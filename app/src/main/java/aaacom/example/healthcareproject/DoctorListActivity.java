@@ -2,45 +2,61 @@ package aaacom.example.healthcareproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import androidx.appcompat.widget.SearchView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
+import aaacom.example.healthcareproject.DoctorAdapter;
+import aaacom.example.healthcareproject.R;
 import aaacom.example.healthcareproject.dao.DoctorDao;
 import aaacom.example.healthcareproject.entities.Doctor;
 
 public class DoctorListActivity extends AppCompatActivity {
 
+    private DoctorAdapter adapter;
+    private ArrayList<Doctor> doctorList;
+    private ArrayList<Doctor> filteredList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_doctor_list);
+
         String specialization = getIntent().getStringExtra("specialization");
 
         DoctorDao doctorDao = new DoctorDao(this);
-        ArrayList<Doctor> doctorList = doctorDao.getDoctorsBySpecialization(specialization);
-
-        ArrayList<String> doctorInfoList = new ArrayList<>();
-        for (Doctor doctor : doctorList) {
-            doctorInfoList.add(doctor.getName() + " - " + doctor.getSpecialization() + " - " + doctor.getExperience() + " năm kinh nghiệm - "
-                    + " Địa chỉ: " + doctor.getHospitalAddress() + " - Phí khám: " + doctor.getFee() +"VND \n");
-        }
+        doctorList = doctorDao.getDoctorsBySpecialization(specialization);
+        filteredList = new ArrayList<>(doctorList);
 
         ListView listView = findViewById(R.id.lv_doctors);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, doctorInfoList);
+        adapter = new DoctorAdapter(this, R.layout.item_doctor_list_view, filteredList);
         listView.setAdapter(adapter);
 
-        // Bắt sự kiện nhấn vào một item trong ListView
+        SearchView searchView = findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Không làm gì khi submit, chỉ lọc khi người dùng nhập
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterDoctors(newText);
+                return true;
+            }
+        });
+
+        Button btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(v -> {
+            finish(); // Kết thúc DoctorListActivity
+        });
+
         listView.setOnItemClickListener((parent, view, position, id) -> {
             // Lấy bác sĩ đã chọn
             Doctor selectedDoctor = doctorList.get(position);
@@ -56,14 +72,19 @@ public class DoctorListActivity extends AppCompatActivity {
             // Chuyển đến Activity tiếp theo
             startActivity(intent);
         });
+    }
 
-        Button btnBack = findViewById(R.id.btn_back);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DoctorListActivity.this, FindDoctorActivity.class);
-                startActivity(intent);
+    private void filterDoctors(String query) {
+        filteredList.clear();
+        if (query.isEmpty()) {
+            filteredList.addAll(doctorList);
+        } else {
+            for (Doctor doctor : doctorList) {
+                if (doctor.getName().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(doctor);
+                }
             }
-        });
+        }
+        adapter.notifyDataSetChanged();
     }
 }

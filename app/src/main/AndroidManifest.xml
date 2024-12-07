@@ -16,6 +16,12 @@
             android:name=".BookingDetails"
             android:exported="false" />
         <activity
+            android:name=".ArticleListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ArticleDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".CartBuyMedicineActivity"
             android:exported="false" />
         <activity

@@ -160,6 +160,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardView_Article"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 app:cardBackgroundColor="#00c4ca"
