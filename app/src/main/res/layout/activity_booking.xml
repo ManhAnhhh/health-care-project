@@ -21,32 +21,32 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.66" />
+        app:layout_constraintVertical_bias="0.142" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đăng ký"
+        android:text="Đặt lịch khám"
         android:textColor="#fff"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.238" />
+        app:layout_constraintVertical_bias="0.099" />
+
 
     <EditText
-        android:id="@+id/editNewTK"
+        android:id="@+id/txtHoten"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@drawable/cus_edittext"
         android:drawableLeft="@drawable/ic_baseline_person_24"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Họ và tên"
+        android:hint="Bác sĩ"
         android:inputType="text"
         android:padding="10dp"
         android:rotationX="0"
@@ -57,39 +57,38 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.369" />
-
+        app:layout_constraintVertical_bias="0.183" />
 
     <EditText
-        android:id="@+id/editMK"
+        android:id="@+id/txtNgayhẹn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@drawable/cus_edittext"
-        android:drawableLeft="@drawable/ic_baseline_email_24"
+        android:drawableLeft="@drawable/baseline_location_on_24"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Email"
-        android:inputType="textPassword"
+        android:hint="Địa chỉ"
+        android:inputType="text"
         android:padding="10dp"
         android:textColor="#fff"
         android:textColorHint="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editNewTK" />
+        app:layout_constraintTop_toBottomOf="@+id/txtHoten" />
 
     <EditText
-        android:id="@+id/editNewPass"
+        android:id="@+id/txtGiohen"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@drawable/cus_edittext"
-        android:drawableLeft="@drawable/lock_24px"
+        android:drawableLeft="@drawable/baseline_local_phone_24"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Mật khẩu"
-        android:inputType="textPassword"
+        android:hint="Số điện thoại"
+        android:inputType="text"
         android:padding="10dp"
 
         android:textColor="#fff"
@@ -98,53 +97,108 @@
 
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editMK" />
-
+        app:layout_constraintTop_toBottomOf="@+id/txtNgayhẹn" />
     <EditText
-        android:id="@+id/editAgainPass"
+        android:id="@+id/txtPhi"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@drawable/cus_edittext"
-        android:drawableStart="@drawable/lock_24px"
+        android:drawableStart="@drawable/baseline_account_balance_wallet_24"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Xác nhận mật khẩu"
-        android:inputType="textPassword"
+        android:hint="Phí nộp"
+        android:inputType="text"
         android:padding="10dp"
         android:textColor="#fff"
         android:textColorHint="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editNewPass" />
-
+        app:layout_constraintTop_toBottomOf="@id/txtGiohen" />
     <Button
         android:id="@+id/btnBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="300dp"
-        android:text="Đăng ký"
+        android:text="Đặt lịch"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editMK"
-        app:layout_constraintVertical_bias="0.695" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPhi"
+        app:layout_constraintVertical_bias="0.653" />
 
-    <TextView
-        android:id="@+id/txtLogin"
+    <Button
+        android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/login"
-        android:textColorHint="#fff"
-        android:textSize="18sp"
+        android:layout_marginTop="67dp"
+        android:layout_marginBottom="52dp"
+        android:width="300dp"
+        android:text="Quay lại"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBook"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintTop_toTopOf="@+id/btnBook"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnNgay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="78dp"
+        android:text="Chọn ngày"
+        app:layout_constraintBottom_toTopOf="@+id/btnBook"
+        app:layout_constraintEnd_toStartOf="@+id/btnGio"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPhi"
+        app:layout_constraintVertical_bias="0.704" />
+
+    <Button
+        android:id="@+id/btnGio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="78dp"
+        android:text="Chọn giờ"
+        app:layout_constraintBottom_toTopOf="@+id/btnBook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPhi"
+        app:layout_constraintVertical_bias="0.704" />
+
+    <TextView
+        android:id="@+id/txtNgay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnBook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.187"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNgay"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/txtGio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnBook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.756"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNgay"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
