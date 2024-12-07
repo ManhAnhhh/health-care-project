@@ -1,24 +1,36 @@
 package aaacom.example.healthcareproject;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import aaacom.example.healthcareproject.R;
 
 public class ArticleDetailActivity extends AppCompatActivity {
+    private TextView txtvArticleDetailTitle, txtvArticleDetailContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_article_detail);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        txtvArticleDetailTitle = findViewById(R.id.txtv_ArticleDetailTitle);
+        txtvArticleDetailContent = findViewById(R.id.txtv_ArticleDetailContent);
+
+        // Lấy dữ liệu từ Intent
+        String title = getIntent().getStringExtra("title");
+        String content = getIntent().getStringExtra("content");
+
+        // Hiển thị tiêu đề và nội dung
+        txtvArticleDetailTitle.setText(title);
+        txtvArticleDetailContent.setText(content);
+
+        Button btnBackB = findViewById(R.id.btn_BackB);
+        btnBackB.setOnClickListener(v -> {
+           finish();
         });
     }
 }

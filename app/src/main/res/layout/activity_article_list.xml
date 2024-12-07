@@ -1,10 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ArticleListActivity">
+    android:background="@drawable/back2"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:fitsSystemWindows="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Tiêu đề bài viết -->
+    <TextView
+        android:id="@+id/txtv_ArticleTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="HEALTHCARE"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- ListView hiển thị bài viết -->
+    <ListView
+        android:id="@+id/lvArticles"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp" />
+
+    <!-- Nút quay lại -->
+    <Button
+        android:id="@+id/btn_BackA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quay lại"
+        android:textColor="#ffffff"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>

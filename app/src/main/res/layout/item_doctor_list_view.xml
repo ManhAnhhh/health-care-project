@@ -1,6 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@android:color/white"
+    android:stretchColumns="1">
 
-</LinearLayout>
+    <!-- Dòng hiển thị tên bác sĩ -->
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/txtv_DoctorName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_span="2"
+            android:text="Tên bác sĩ"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <!-- Dòng hiển thị chuyên môn và kinh nghiệm -->
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/txtv_Specialization"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Chuyên môn"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtv_Experience"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="10 năm kinh nghiệm"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+    </TableRow>
+
+    <!-- Dòng hiển thị địa chỉ bệnh viện -->
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/txtv_HospitalAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Địa chỉ: Bệnh viện A"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/txtv_Contact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SĐT: 0832636326"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+    </TableRow>
+
+    <!-- Dòng hiển thị phí khám -->
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/txtv_Fee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_span="2"
+            android:text="Phí khám: 200.000 đ"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </TableRow>
+</TableLayout>
