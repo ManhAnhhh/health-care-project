@@ -35,11 +35,11 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         convertView = inflater.inflate(LayoutId, null);
 
         if (List.size() > 0 && position >= 0) {
-            final TextView txtv_CustomerName = convertView.findViewById(R.id.txtv_CustomerName);
-            final TextView txtv_LoaiThuoc = convertView.findViewById(R.id.txtv_LoaiThuoc);
-            final TextView txtv_SoLuong = convertView.findViewById(R.id.txtv_SoLuong);
+            final TextView txtv_CustomerName = convertView.findViewById(R.id.txtBacsi);
+            final TextView txtv_LoaiThuoc = convertView.findViewById(R.id.txtNgayhẹn);
+            final TextView txtv_SoLuong = convertView.findViewById(R.id.txtGiohen);
             final TextView txtv_NgayDat = convertView.findViewById(R.id.txtv_NgayDat);
-            final TextView txtv_ThanhTien = convertView.findViewById(R.id.txtv_ThanhTien);
+            final TextView txtv_ThanhTien = convertView.findViewById(R.id.txtThanhtien);
 
             final View view = convertView;
             final Order order = List.get(position);
