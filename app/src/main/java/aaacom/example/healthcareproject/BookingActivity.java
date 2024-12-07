@@ -60,7 +60,7 @@ public class BookingActivity extends AppCompatActivity {
         txtDiachi.setText("Địa chỉ khám: "+address);
         txtSdt.setText("Chuyên khoa: "+contact);
         txtPhi.setText("Phí khám: "+fees + " VND");
-
+      
         //Xử lý btnNgay
         btnNgay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,14 +90,15 @@ public class BookingActivity extends AppCompatActivity {
         btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Lấy dữ liệu từ các trường nhập liệu
                 String hoten = txtHoten.getText().toString().trim();
                 String diachi = txtDiachi.getText().toString().trim();
                 String sdt = txtSdt.getText().toString().trim();
                 String phi = txtPhi.getText().toString().trim();
                 String gio = txtGio.getText().toString().trim();
                 String ngay = txtNgay.getText().toString().trim(); // Đừng quên khai báo biến ngày
-
                 // Kiểm tra thông tin nhập vào
+
                 if (hoten.isEmpty() || diachi.isEmpty() || sdt.isEmpty() || phi.isEmpty() || ngay.isEmpty() || gio.isEmpty()) {
                     Toast.makeText(BookingActivity.this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
                     return;
@@ -135,8 +136,6 @@ public class BookingActivity extends AppCompatActivity {
                 }
             }
         });
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

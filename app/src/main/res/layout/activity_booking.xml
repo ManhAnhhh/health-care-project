@@ -98,7 +98,6 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNgayhẹn" />
-
     <EditText
         android:id="@+id/txtPhi"
         android:layout_width="300dp"
@@ -117,7 +116,6 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtGiohen" />
-
     <Button
         android:id="@+id/btnBook"
         android:layout_width="wrap_content"
@@ -184,6 +182,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnBook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.187"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnNgay"
         app:layout_constraintVertical_bias="0.0" />

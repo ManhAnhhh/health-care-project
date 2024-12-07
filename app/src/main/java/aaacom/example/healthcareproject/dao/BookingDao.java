@@ -154,7 +154,6 @@ public class BookingDao {
         return booking;
     }
 
-
     // Phương thức xóa lịch khám theo BookingId
     public void deleteBooking(int bookingId) {
         SQLiteDatabase db = databaseUtils.getWritableDatabase();
