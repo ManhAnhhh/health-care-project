@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">HealthcareProject</string>
+    <string name="app_name">
+        <font color="#FFECB3" size="32">Health Care</font>
+    </string>
+
     <string name="register"><u>Đăng ký</u></string>
     <string name="login"><u>Bạn đã có tài khoản ?</u></string>
 

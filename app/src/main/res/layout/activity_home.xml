@@ -14,9 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
-        android:text="Health Care 24/7"
-        android:textColor="#FFECB3"
-        android:textSize="40sp"
+        android:text="@string/app_name"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -37,7 +35,9 @@
                 app:cardBackgroundColor="#00c4ca"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="12dp"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -65,6 +65,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="LỊCH KHÁM"
+                            android:textStyle="bold"
                             android:textColor="#D3D3D3"
                             android:textSize="20dp" />
                     </TableRow>
@@ -78,7 +79,9 @@
                 app:cardBackgroundColor="#00c4ca"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="12dp"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -107,6 +110,7 @@
                             android:gravity="center"
                             android:text="ĐẶT THUỐC"
                             android:textColor="#D3D3D3"
+                            android:textStyle="bold"
                             android:textSize="20dp" />
                     </TableRow>
                 </LinearLayout>
@@ -125,7 +129,9 @@
                 app:cardBackgroundColor="#00c4ca"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="12dp"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -166,7 +172,9 @@
                 app:cardBackgroundColor="#00c4ca"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="12dp"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -193,6 +201,7 @@
                             android:layout_height="wrap_content"
                             android:text="BÀI VIẾT"
                             android:gravity="center"
+                            android:textStyle="bold"
                             android:textSize="20dp"
                             android:textColor="#D3D3D3"/>
                     </TableRow>
@@ -212,7 +221,9 @@
                 app:cardBackgroundColor="#00c4ca"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="12dp"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -240,6 +251,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="ĐƠN HÀNG"
+                            android:textStyle="bold"
                             android:textColor="#D3D3D3"
                             android:textSize="20dp" />
                     </TableRow>
@@ -252,7 +264,9 @@
                 app:cardBackgroundColor="#00c4ca"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="12dp"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -279,6 +293,7 @@
                             android:layout_height="wrap_content"
                             android:text="ĐĂNG XUẤT"
                             android:gravity="center"
+                            android:textStyle="bold"
                             android:textSize="20dp"
                             android:textColor="#D3D3D3"/>
                     </TableRow>

@@ -74,7 +74,7 @@ public class DatabaseUtils extends SQLiteOpenHelper {
         return databaseFile.exists();
     }
 
-    private void copyDataBase() throws IOException {
+    public void copyDataBase() throws IOException {
         InputStream inputStream = context.getAssets().open(DATABASE_NAME);
         String databasePath = DATABASE_PATH + DATABASE_NAME;
         OutputStream outputStream = new FileOutputStream(databasePath, false);

@@ -20,18 +20,6 @@
         app:title="Đơn đặt hàng của tôi!"
         app:titleTextColor="@android:color/white" />
 
-    <TextView
-        android:id="@+id/textView_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Deliver Location : PUNE"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="10dp"/>
-
     <ListView
         android:id="@+id/listViewBM"
         android:layout_width="match_parent"

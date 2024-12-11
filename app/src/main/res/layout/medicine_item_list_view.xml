@@ -11,7 +11,7 @@
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Medicine Name"
+        android:text="Tên thuốc: "
         android:textSize="18sp"
         android:textColor="@color/purple_500"
         android:textStyle="bold" />
@@ -20,7 +20,7 @@
         android:id="@+id/txtPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Price: $0.00"
+        android:text="Giá thành: $0.00"
         android:textColor="#320606"
         android:textSize="16sp" />
 </LinearLayout>
