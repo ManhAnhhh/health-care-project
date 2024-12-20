@@ -17,7 +17,7 @@
         android:backgroundTint="#7C17FF"
         android:elevation="4dp"
         app:navigationIcon="@drawable/ic_back_arrow"
-        app:title="Đơn đặt hàng của tôi!"
+        app:title="Danh sách thuốc"
         app:titleTextColor="@android:color/white" />
 
     <ListView

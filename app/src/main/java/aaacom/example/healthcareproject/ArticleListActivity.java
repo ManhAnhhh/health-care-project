@@ -2,12 +2,17 @@ package aaacom.example.healthcareproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
 
@@ -15,17 +20,24 @@ import aaacom.example.healthcareproject.ArticleAdapter;
 import aaacom.example.healthcareproject.R;
 import aaacom.example.healthcareproject.dao.ArticleDao;
 import aaacom.example.healthcareproject.entities.Article;
+import aaacom.example.healthcareproject.utils.MenuEventUtil;
 
 public class ArticleListActivity extends AppCompatActivity {
     private ListView lvArticles;
     private ArticleDao articleDao;
     private ArticleAdapter articleAdapter;
     private ArrayList<Article> articles;
+    MaterialToolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
+
+        // Setup Toolbar
+        toolbar = findViewById(R.id.tbr_ListArticle);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         lvArticles = findViewById(R.id.lvArticles);
         articleDao = new ArticleDao(this);
@@ -35,10 +47,6 @@ public class ArticleListActivity extends AppCompatActivity {
 
         lvArticles.setAdapter(articleAdapter);
 
-        Button btnBackA = findViewById(R.id.btn_BackA);
-        btnBackA.setOnClickListener(v -> {
-           finish();
-        });
         // Bắt sự kiện khi nhấn vào một bài viết
         lvArticles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,5 +65,24 @@ public class ArticleListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return MenuEventUtil.handleMenuEvent(item, this);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        // Xử lý khi nhấn nút quay lại
+        onBackPressed(); // Quay lại màn hình trước
+        return true;
     }
 }

@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 
 import aaacom.example.healthcareproject.entities.Cart;
+import aaacom.example.healthcareproject.utils.Commons;
 
 public class CartAdapter extends BaseAdapter {
     private Context context;
@@ -60,10 +61,9 @@ public class CartAdapter extends BaseAdapter {
 
         // Bind the Cart object's properties to the views
         productName.setText(cart.getProductName());
-        price.setText("Price: $" + cart.getPrice());
-        quantity.setText("Quantity: " + cart.getQuantity());
+        price.setText("Gia tiền: " + Commons.FormatDecimalCommon(cart.getPrice()) + " VNĐ");
+        quantity.setText("Số lượng: " + cart.getQuantity());
 
-        // Handle the checkbox state change (selection/unselection)
         checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 selectedItems.add(cart); // Add to selected items if checked

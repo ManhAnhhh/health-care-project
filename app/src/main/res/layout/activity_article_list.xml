@@ -2,20 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/back2"
     android:orientation="vertical"
-    android:padding="16dp"
     android:fitsSystemWindows="true">
 
-    <!-- Tiêu đề bài viết -->
-    <TextView
-        android:id="@+id/txtv_ArticleTitle"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tbr_ListArticle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:gravity="center"
-        android:textColor="#ffffff"
-        android:textStyle="bold" />
+        android:background="#80FFFFFF"
+        android:backgroundTint="#7C17FF"
+        android:elevation="4dp"
+        app:navigationIcon="@drawable/ic_back_arrow"
+        app:title="Danh sách các bài viết"
+        app:titleTextColor="@android:color/white" />
 
     <!-- ListView hiển thị bài viết -->
     <ListView
@@ -24,15 +25,4 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="16dp" />
-
-    <!-- Nút quay lại -->
-    <Button
-        android:id="@+id/btn_BackA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quay lại"
-        android:textColor="#ffffff"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center_horizontal" />
 </LinearLayout>

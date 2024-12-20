@@ -1,6 +1,7 @@
 package aaacom.example.healthcareproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -52,6 +53,12 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 // Kiểm tra đăng nhập
                 if (userDao.loginUser(email, password)) {
+                    // Lưu tên người dùng vào SharedPreferences
+                    SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("username", email);
+                    editor.apply();
+
                     // Nếu đăng nhập thành công, chuyển đến màn hình chính
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);

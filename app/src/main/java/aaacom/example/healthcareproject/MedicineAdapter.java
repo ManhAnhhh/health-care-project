@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import aaacom.example.healthcareproject.entities.Medicine;
+import aaacom.example.healthcareproject.utils.Commons;
 
 public class MedicineAdapter extends android.widget.BaseAdapter {
     private Context context;
@@ -58,7 +59,7 @@ public class MedicineAdapter extends android.widget.BaseAdapter {
 
         Medicine medicine = medicines.get(position);
         holder.txtName.setText(medicine.getName());
-        holder.txtPrice.setText("Price: $" + medicine.getPrice());
+        holder.txtPrice.setText("Gia tiền: " + Commons.FormatDecimalCommon(medicine.getPrice()));
 
         return view;
     }

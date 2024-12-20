@@ -43,7 +43,7 @@ public class MedicineDao {
         }
 
         // Query
-        String sql = "SELECT * FROM Medicine";
+        String sql = "SELECT * FROM Medicine order by name";
         Cursor cursor = database.rawQuery(sql, null);
 
         Log.i(TAG, "getMedicines: " + cursor.getCount());
@@ -54,14 +54,39 @@ public class MedicineDao {
                 int id = cursor.getInt(0);
                 String name = cursor.getString(1);
                 float price = cursor.getFloat(2);
-
-                medicines.add(new Medicine(id, name, price));
+                String description = cursor.getString(3);
+                String category = cursor.getString(4);
+                String cong_dung = cursor.getString(5);
+                medicines.add(new Medicine(id, name, price, description, category, cong_dung));
                 cursor.moveToNext();
             }
             cursor.close();
         }
 
         return medicines;
+    }
+
+    public Medicine GetMedicineById(int id) {
+        SQLiteDatabase database = databaseUtils.getReadableDatabase();
+
+        String sql = "select id, name, price, description, category, cong_dung from Medicine where id = ?;";
+        String[] params = new String[]{id + ""};
+        Cursor cursor = database.rawQuery(sql, params);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            int medicineId = cursor.getInt(0);
+            String name = cursor.getString(1);
+            String price = cursor.getString(2);
+            String description = cursor.getString(3);
+            String category = cursor.getString(4);
+            String cong_dung = cursor.getString(5);
+            Medicine medicine = new Medicine(medicineId, name, Float.parseFloat(price), description, category, cong_dung);
+            return medicine;
+        }
+
+        cursor.close();
+        return null;
     }
 
     // Create Medicine

@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import aaacom.example.healthcareproject.dao.CartDao;
 import aaacom.example.healthcareproject.dao.OrderDao;
 import aaacom.example.healthcareproject.entities.Cart;
 import aaacom.example.healthcareproject.entities.Order;
+import aaacom.example.healthcareproject.utils.Commons;
 
 public class CartBuyMedicineActivity extends AppCompatActivity {
     SimpleAdapter sa;
@@ -37,7 +39,7 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
     private Button dateButton, btnCheckout, btnBack;
     private String[][] packages = {};
     private CartAdapter adapter;
-
+    EditText txtOrderPlace;
     CartDao cartDao;
     OrderDao orderDao;
 
@@ -54,9 +56,10 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.buttonBMStartBack);
         tvTotal = findViewById(R.id.textViewBMCartTotalCost);
         lst = findViewById(R.id.listViewBMCart);
+        txtOrderPlace = findViewById(R.id.txt_OrderPlaceMedicine);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-        String username = sharedPreferences.getString("username", "testuser"); // Default to "testuser" if not set
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "Guest");
 
         cartDao = new CartDao(this);
         ArrayList<Cart> cartItems = cartDao.getCartItems();
@@ -84,54 +87,59 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<Cart> selectedItems = adapter.getSelectedItems(); // Get selected items from the adapter
+                ArrayList<Cart> selectedItems = adapter.getSelectedItems();
 
                 if (selectedItems.isEmpty()) {
-                    // Show alert if no items are selected
                     new AlertDialog.Builder(CartBuyMedicineActivity.this)
                             .setTitle("No Items Selected")
                             .setMessage("Please select at least one item to proceed.")
                             .setPositiveButton("OK", null)
                             .show();
-                    return; // Exit method if no items are selected
+                    return;
                 }
 
                 // Calculate total amount based on selected items
 //                float totalAmount = 0.0f;
 //                for (Cart item : selectedItems) {
-//                    totalAmount += item.getPrice() * item.getQuantity(); // Calculate total for selected items
+//                    totalAmount += item.getPrice() * item.getQuantity();
 //                }
-//                tvTotal.setText(String.format("Total Cost: $%.2f", totalAmount)); // Update total cost display
+//                tvTotal.setText(String.format("Total Cost: $%.2f", totalAmount));
 
-                // Process each selected item and create an order
+                String orderPlace = txtOrderPlace.getText().toString().trim();
+
+                if (orderPlace == null || orderPlace.isEmpty()) {
+                    new AlertDialog.Builder(CartBuyMedicineActivity.this)
+                            .setTitle("Địa chỉ nhận hàng.")
+                            .setMessage("Vui lòng nhập địa chỉ nhận hàng.")
+                            .setPositiveButton("OK", null)
+                            .show();
+                    return;
+                }
+
                 for (Cart item : selectedItems) {
-                    Order order = new Order(item.getQuantity(), item.getMedicine_id(), item.getOrderPlace(), item.getOrderDate(), item.getCustomerName(), total_amount);
+                    Order order = new Order(item.getQuantity(), item.getMedicine_id(), orderPlace, item.getOrderDate(), item.getCustomerName(), total_amount);
 
                     orderDao.createOrder(order);
                 }
 
-                // Remove selected items from the cart after placing the order
                 for (Cart item : selectedItems) {
-                    cartDao.deleteCartItem(item.getId()); // Delete cart item
+                    cartDao.deleteCartItem(item.getId());
                 }
 
-                // Show confirmation dialog
                 new AlertDialog.Builder(CartBuyMedicineActivity.this)
                         .setTitle("Đặt hàng mua thuốc!")
-                        .setMessage("Đặt mua thuốc thành công!\\nBạn sẽ được chuyển sang màn hình đơn hàng sau 5 giây.")
+                        .setMessage("Đặt mua thuốc thành công! Bạn sẽ được chuyển sang màn hình đơn hàng sau 5 giây.")
                         .setPositiveButton("OK", (dialog, which) -> {
-                            // After successful checkout, refresh the cart list and update the adapter
-                            ArrayList<Cart> updatedCartItems = cartDao.getCartItems(); // Get updated cart items
-                            adapter.updateData(updatedCartItems); // Update the adapter with new cart items
-                            adapter.notifyDataSetChanged(); // Notify the adapter that the data has changed
+                            ArrayList<Cart> updatedCartItems = cartDao.getCartItems();
+                            adapter.updateData(updatedCartItems);
+                            adapter.notifyDataSetChanged();
                         })
                         .show();
 
-                // Start a delayed task to navigate to OrderActivity after 5 seconds
                 new Handler().postDelayed(() -> {
                     startActivity(new Intent(CartBuyMedicineActivity.this, OrdersActivity.class));
-                    finish(); // Close the current activity if no longer needed
-                }, 5000); // Delay in milliseconds (5 seconds)
+                    finish();
+                }, 5000);
             }
         });
 
@@ -142,15 +150,15 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
-
     }
 
     private void updateTotalCost(ArrayList<Cart> selectedItems) {
         for (Cart item : selectedItems) {
-            total_amount += item.getPrice() * item.getQuantity(); // Calculate total for selected items
+            total_amount += item.getPrice() * item.getQuantity();
         }
-        tvTotal.setText(String.format("Total Cost: $%.2f", total_amount)); // Update total cost display
+        tvTotal.setText("Tổng tiền:  " + Commons.FormatDecimalCommon(total_amount));
     }
+
     private void initDatePicker(){
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -165,6 +173,5 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
 
         datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
         datePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis() + 86400000);
-
     }
 }

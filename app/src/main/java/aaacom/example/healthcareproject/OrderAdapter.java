@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import aaacom.example.healthcareproject.entities.Order;
+import aaacom.example.healthcareproject.utils.Commons;
 
 
 public class OrderAdapter extends ArrayAdapter<Order> {
@@ -46,17 +47,9 @@ public class OrderAdapter extends ArrayAdapter<Order> {
 
             txtv_CustomerName.setText(order.getCustomer_name().toString());
             txtv_LoaiThuoc.setText("Thuốc: " + order.getMedicine_name());
-            txtv_SoLuong.setText("x" + order.getQuantity());
+            txtv_SoLuong.setText("Số lượng: " + order.getQuantity());
             txtv_NgayDat.setText("Ngày đặt: " +order.getOrder_date().toString());
-
-            // Thiết lập định dạng cho Việt Nam
-            Locale vietnam = new Locale("vi", "VN");
-            NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(vietnam);
-
-            // Định dạng số tiền
-            String formattedAmount = currencyFormatter.format(order.getTotal_amount());
-
-            txtv_ThanhTien.setText("Thành tiền: " + formattedAmount);
+            txtv_ThanhTien.setText("Thành tiền: " + Commons.FormatDecimalCommon(order.getTotal_amount()));
         }
 
         return convertView;

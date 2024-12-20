@@ -2,12 +2,18 @@ package aaacom.example.healthcareproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
 
@@ -15,17 +21,24 @@ import aaacom.example.healthcareproject.DoctorAdapter;
 import aaacom.example.healthcareproject.R;
 import aaacom.example.healthcareproject.dao.DoctorDao;
 import aaacom.example.healthcareproject.entities.Doctor;
+import aaacom.example.healthcareproject.utils.MenuEventUtil;
 
 public class DoctorListActivity extends AppCompatActivity {
 
     private DoctorAdapter adapter;
     private ArrayList<Doctor> doctorList;
     private ArrayList<Doctor> filteredList;
+    MaterialToolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_list);
+
+        // Setup Toolbar
+        toolbar = findViewById(R.id.tbr_ListDoctor);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         String specialization = getIntent().getStringExtra("specialization");
 
@@ -50,11 +63,6 @@ public class DoctorListActivity extends AppCompatActivity {
                 filterDoctors(newText);
                 return true;
             }
-        });
-
-        Button btnBack = findViewById(R.id.btn_back);
-        btnBack.setOnClickListener(v -> {
-            finish(); // Kết thúc DoctorListActivity
         });
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
@@ -86,5 +94,24 @@ public class DoctorListActivity extends AppCompatActivity {
             }
         }
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return MenuEventUtil.handleMenuEvent(item, this);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        // Xử lý khi nhấn nút quay lại
+        onBackPressed(); // Quay lại màn hình trước
+        return true;
     }
 }

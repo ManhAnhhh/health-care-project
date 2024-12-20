@@ -1,25 +1,31 @@
 package aaacom.example.healthcareproject;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import java.util.ArrayList;
 
 import aaacom.example.healthcareproject.dao.BookingDao;
 import aaacom.example.healthcareproject.entities.Booking;
+import aaacom.example.healthcareproject.utils.MenuEventUtil;
 
 public class BookingDetails extends AppCompatActivity {
     Button btnBack;
     ListView lvLichkham;
     BookingAdapter adapter;
     ArrayList<Booking> bookingList = new ArrayList<>();
-
+    MaterialToolbar toolbar;
     BookingDao bookingDao;
 
     @Override
@@ -27,12 +33,13 @@ public class BookingDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_details);
 
+        // Setup Toolbar
+        toolbar = findViewById(R.id.tbr_bookingDetail);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+
         // Khởi tạo BookingDao để truy cập cơ sở dữ liệu
         bookingDao = new BookingDao(this);
-
-        // Tạo đối tượng button và xử lý sự kiện khi nhấn vào button
-        btnBack = findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(view -> finish());  // Quay lại màn hình trước đó
 
         // Khởi tạo ListView
         lvLichkham = findViewById(R.id.lvLichkham); // Đảm bảo ID là đúng
@@ -52,5 +59,24 @@ public class BookingDetails extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return MenuEventUtil.handleMenuEvent(item, this);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        // Xử lý khi nhấn nút quay lại
+        onBackPressed(); // Quay lại màn hình trước
+        return true;
     }
 }

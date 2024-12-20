@@ -8,34 +8,22 @@ import androidx.annotation.NonNull;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class Medicine implements Parcelable {
+public class Medicine {
     int id;
     String name;
     float price;
+    String description;
+    String category;
+    String cong_dung;
 
-    public Medicine(int id, String name, float price) {
+    public Medicine(int id, String name, float price, String description, String category, String cong_dung) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.description = description;
+        this.category = category;
+        this.cong_dung = cong_dung;
     }
-
-    protected Medicine(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-        price = in.readFloat();
-    }
-
-    public static final Creator<Medicine> CREATOR = new Creator<Medicine>() {
-        @Override
-        public Medicine createFromParcel(Parcel in) {
-            return new Medicine(in);
-        }
-
-        @Override
-        public Medicine[] newArray(int size) {
-            return new Medicine[size];
-        }
-    };
 
     public int getId() {
         return id;
@@ -73,15 +61,27 @@ public class Medicine implements Parcelable {
         return id + " - " + name + " - " + formattedAmount;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getDescription() {
+        return description;
     }
 
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-        dest.writeFloat(price);
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getCong_dung() {
+        return cong_dung;
+    }
+
+    public void setCong_dung(String cong_dung) {
+        this.cong_dung = cong_dung;
     }
 }

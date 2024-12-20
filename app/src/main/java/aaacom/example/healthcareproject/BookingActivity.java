@@ -5,6 +5,8 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -13,20 +15,24 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import java.util.Calendar;
 
 import aaacom.example.healthcareproject.dao.BookingDao;
 import aaacom.example.healthcareproject.entities.Booking;
+import aaacom.example.healthcareproject.utils.MenuEventUtil;
 
 public class BookingActivity extends AppCompatActivity {
     EditText txtHoten, txtDiachi, txtSdt, txtPhi;
     TextView txtNgay, txtGio;
-    Button btnBook, btnBack, btnNgay, btnGio;
+    Button btnBook, btnNgay, btnGio;
 
     //sử dụng để nhận thông tin ngày, giờ mà người dùng đã chọn.
     DatePickerDialog.OnDateSetListener myDate;
@@ -37,11 +43,17 @@ public class BookingActivity extends AppCompatActivity {
     int myHour;
     int myMinute;
 
+    MaterialToolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
+
+        // Setup Toolbar
+        toolbar = findViewById(R.id.tbr_booking);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         getWidget();
 
@@ -78,14 +90,6 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
         getandsetTime();
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(BookingActivity.this, DoctorListActivity.class);
-                startActivity(intent);
-            }
-        });
 
         btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,6 +210,26 @@ public class BookingActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return MenuEventUtil.handleMenuEvent(item, this);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        // Xử lý khi nhấn nút quay lại
+        onBackPressed(); // Quay lại màn hình trước
+        return true;
+    }
+
     private void showDatePickerDialog() {
         //tạo style
         int style = DatePickerDialog.THEME_HOLO_DARK;
@@ -222,7 +246,6 @@ public class BookingActivity extends AppCompatActivity {
         txtSdt = findViewById(R.id.txtGiohen);
         txtPhi = findViewById(R.id.txtPhi);
         btnBook = findViewById(R.id.btnBook);
-        btnBack = findViewById(R.id.btnBack);
         txtNgay = findViewById(R.id.txtNgay);
         txtGio = findViewById(R.id.txtGio);
         btnNgay = findViewById(R.id.btnNgay);

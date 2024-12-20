@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import aaacom.example.healthcareproject.entities.Booking;
+import aaacom.example.healthcareproject.utils.Commons;
 
 public class BookingAdapter extends ArrayAdapter<Booking> {
     Activity context;
@@ -72,7 +73,7 @@ public class BookingAdapter extends ArrayAdapter<Booking> {
             txtBacsi.setText("Bác sĩ: " + doctorName);
             txtDiachi.setText("Địa chỉ: " + doctorAddress);
             txtSdt.setText("SĐT: " + doctorPhone);
-            txtFee.setText("Thành tiền: " + doctorFee + " VND");
+            txtFee.setText("Thành tiền: " + Commons.FormatDecimalCommon(Float.parseFloat(doctorFee)));
 
             // Hiển thị thông tin booking
             txtNgayhen.setText("Ngày hẹn: " + booking.getDate());
