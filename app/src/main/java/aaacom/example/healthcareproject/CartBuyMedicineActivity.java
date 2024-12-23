@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -15,11 +17,14 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,6 +34,7 @@ import aaacom.example.healthcareproject.dao.OrderDao;
 import aaacom.example.healthcareproject.entities.Cart;
 import aaacom.example.healthcareproject.entities.Order;
 import aaacom.example.healthcareproject.utils.Commons;
+import aaacom.example.healthcareproject.utils.MenuEventUtil;
 
 public class CartBuyMedicineActivity extends AppCompatActivity {
     SimpleAdapter sa;
@@ -42,6 +48,7 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
     EditText txtOrderPlace;
     CartDao cartDao;
     OrderDao orderDao;
+    MaterialToolbar toolbar;
 
     float total_amount = 0.0f;
 
@@ -50,6 +57,11 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cart_buy_medicine);
+
+        // Setup Toolbar
+        toolbar = findViewById(R.id.tbr_cartBuyMedicine);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         dateButton = findViewById(R.id.buttonBMCartDate);
         btnCheckout = findViewById(R.id.buttonBMCartCheckout);
@@ -91,8 +103,8 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
 
                 if (selectedItems.isEmpty()) {
                     new AlertDialog.Builder(CartBuyMedicineActivity.this)
-                            .setTitle("No Items Selected")
-                            .setMessage("Please select at least one item to proceed.")
+                            .setTitle("Không có thuốc nào được chọn")
+                            .setMessage("Để đặt hàng mua thuốc, vui lòng chọn ít nhất một thuốc.")
                             .setPositiveButton("OK", null)
                             .show();
                     return;
@@ -173,5 +185,24 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
 
         datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
         datePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis() + 86400000);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return MenuEventUtil.handleMenuEvent(item, this);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        // Xử lý khi nhấn nút quay lại
+        onBackPressed(); // Quay lại màn hình trước
+        return true;
     }
 }
