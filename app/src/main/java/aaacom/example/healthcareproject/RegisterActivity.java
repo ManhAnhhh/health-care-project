@@ -17,7 +17,7 @@ import aaacom.example.healthcareproject.utils.DatabaseUtils;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText editNewTK, editMK, editNewPass, editAgainPass;
+    private EditText editNewTK, editMK, editNewPass, editAgainPass, editPhone;
     private Button btnRegister;
     private TextView txtLogin;
     private UserDao userDao;
@@ -36,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         editAgainPass = findViewById(R.id.editAgainPass);
         btnRegister = findViewById(R.id.btnRegister);
         txtLogin = findViewById(R.id.txtLogin);
+        editPhone = findViewById(R.id.editPhone);
 
         // Bắt sự kiện click đăng ký
         btnRegister.setOnClickListener(view -> {
@@ -43,10 +44,11 @@ public class RegisterActivity extends AppCompatActivity {
             String email = editMK.getText().toString();
             String password = editNewPass.getText().toString();
             String confirmPassword = editAgainPass.getText().toString();
+            String phone = editPhone.getText().toString();
 
-            if (validateInputs(name, email, password, confirmPassword)) {
+            if (validateInputs(name, email, password, confirmPassword, phone)) {
                 // Tạo đối tượng User
-                User user = new User(email, name, password);
+                User user = new User(email, name, password, phone);
 
                 // Gọi phương thức đăng ký người dùng
                 boolean registerUser = userDao.registerUser(user);
@@ -72,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validateInputs(String name, String email, String password, String confirmPassword) {
+    private boolean validateInputs(String name, String email, String password, String confirmPassword, String phone) {
         // Kiểm tra tên
         if (TextUtils.isEmpty(name)) {
             editNewTK.setError("Vui lòng nhập họ và tên");
@@ -82,6 +84,12 @@ public class RegisterActivity extends AppCompatActivity {
         // Kiểm tra email
         if (TextUtils.isEmpty(email) || !email.contains("@")) {
             editMK.setError("Vui lòng nhập email hợp lệ");
+            return false;
+        }
+
+        // Kiểm tra phone
+        if (TextUtils.isEmpty(phone)) {
+            editPhone.setError("Vui lòng nhập số điện thoại");
             return false;
         }
 

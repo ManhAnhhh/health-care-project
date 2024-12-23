@@ -117,9 +117,9 @@ public class BuyMedicineDetailsActivity extends AppCompatActivity {
     public void GetMedicineById(int id) {
         Medicine medicine = medicineDao.GetMedicineById(id);
         if (medicine != null) {
-            txtvName.setText(medicine.getName());
+            txtvName.setText("Tên thuốc: " + medicine.getName());
             txtvCategory.setText("Danh mục thuốc: " + medicine.getCategory());
-            txtvCongDung.setText("CÔng dụng của thuốc: " + medicine.getCong_dung());
+            txtvCongDung.setText("Công dụng của thuốc: " + medicine.getCong_dung());
             eDetails.setText(medicine.getDescription());
         } else {
             Toast.makeText(this, "Không tìm thấy thuốc", Toast.LENGTH_SHORT).show();

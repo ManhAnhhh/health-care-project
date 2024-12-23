@@ -2,7 +2,9 @@
     <string name="app_name">
         <font color="#FFECB3" size="32">Health Care</font>
     </string>
-
+    <string name="forgetPassword"><u>Quên mật khẩu</u></string>
+    <string name="send"><u>Gửi mã OTP</u></string>
+    <string name="return_login"><u>Quay về đăng nhập</u></string>
     <string name="register"><u>Đăng ký</u></string>
     <string name="login"><u>Bạn đã có tài khoản ?</u></string>
 

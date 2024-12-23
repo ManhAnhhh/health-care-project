@@ -19,8 +19,8 @@ import androidx.core.view.WindowInsetsCompat;
 import aaacom.example.healthcareproject.dao.UserDao;
 
 public class LoginActivity extends AppCompatActivity {
-    TextView txtRegister;
-    EditText edtEmail, edtPassword;
+    TextView txtRegister, txtForgetPassword;
+    EditText editTK, edtPassword;
     Button btnLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +28,10 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
+        txtForgetPassword = findViewById(R.id.txtForgetPassword);
         txtRegister = findViewById(R.id.txtRegister);
         btnLogin = findViewById(R.id.btnLogin);
-        edtEmail = findViewById(R.id.editTK);
+        editTK = findViewById(R.id.editTK);
         edtPassword = findViewById(R.id.editMK);
 
         UserDao userDao = new UserDao(this);
@@ -43,22 +44,24 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        txtForgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ForgetPassWordActivity.class);
+                startActivity(intent);
+            }
+        });
+
         btnLogin.setOnClickListener(v -> {
-            String email = edtEmail.getText().toString().trim();
+            String account = editTK.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
 
             // Kiểm tra nếu thông tin chưa đầy đủ
-            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            if (TextUtils.isEmpty(account) || TextUtils.isEmpty(password)) {
                 Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
             } else {
                 // Kiểm tra đăng nhập
-                if (userDao.loginUser(email, password)) {
-                    // Lưu tên người dùng vào SharedPreferences
-                    SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("username", email);
-                    editor.apply();
-
+                if (userDao.loginUser(account, password)) {
                     // Nếu đăng nhập thành công, chuyển đến màn hình chính
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
@@ -69,7 +72,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

@@ -2,6 +2,9 @@ package aaacom.example.healthcareproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,12 +13,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import aaacom.example.healthcareproject.dao.UserDao;
+
 public class HomeActivity extends AppCompatActivity {
-    CardView cardViewOrder;
-    CardView cardViewDatThuoc;
-    CardView cardViewFindDoctor;
-    CardView cardViewLichKham;
-    CardView cardViewArticle;
+    CardView cardViewOrder, cardViewDatThuoc, cardViewFindDoctor,
+             cardViewLichKham, cardViewArticle, cardViewLogout;
+    TextView username;
+    UserDao userDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +27,10 @@ public class HomeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
 
+        userDao = new UserDao(this);
         getWidgets();
+
+
 
         events();
 
@@ -51,6 +58,19 @@ public class HomeActivity extends AppCompatActivity {
         cardViewArticle.setOnClickListener(v -> {
             startActivity(new Intent(HomeActivity.this, ArticleListActivity.class));
         });
+
+        cardViewLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserDao userDao = new UserDao(HomeActivity.this);
+                userDao.logoutUser();
+                // Chuyển hướng về màn hình đăng nhập
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+                Toast.makeText(HomeActivity.this, "Đăng xuất thành công", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void getWidgets() {
@@ -59,5 +79,13 @@ public class HomeActivity extends AppCompatActivity {
         cardViewFindDoctor = findViewById(R.id.cardView_FindDoctor);
         cardViewLichKham = findViewById(R.id.cardview_LichKham);
         cardViewArticle = findViewById(R.id.cardView_Article);
+        cardViewLogout = findViewById(R.id.cardview_Logout);
+        username = findViewById(R.id.username);
+        if (userDao != null) {
+            String name = userDao.getLoggedInUserFullName();
+            name = (name != null && !name.isEmpty()) ? name : "";
+            username.setText("Xin chào, " + name);
+        }
+
     }
 }
