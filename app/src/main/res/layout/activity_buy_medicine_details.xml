@@ -103,12 +103,13 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonBMDAddToCart"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
+            android:width="70dp"
             android:text="Thêm vào giỏ hàng"
             android:textColor="@color/black"
             app:backgroundTint="@color/primary_color_light"
@@ -116,18 +117,5 @@
             app:strokeColor="#FFFFFF"
             app:strokeWidth="2dp" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonBMDGoBackBuy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
-            android:layout_weight="1"
-            android:text="Quay lại"
-            android:textColor="@android:color/white"
-            app:backgroundTint="@color/teal_700"
-            app:cornerRadius="8dp"
-            app:strokeColor="#FFFFFF"
-            app:strokeWidth="2dp" />
     </LinearLayout>
 </LinearLayout>

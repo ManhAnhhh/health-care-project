@@ -33,7 +33,7 @@ public class CartAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Cart getItem(int position) {
         return cartItems.get(position); // Return the Cart item at the given position
     }
 
@@ -41,7 +41,6 @@ public class CartAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position; // Return the position as the item ID
     }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
@@ -87,10 +86,12 @@ public class CartAdapter extends BaseAdapter {
     }
 
     // Method to update the cart data (e.g., after modifying the cart)
+
     public void updateData(ArrayList<Cart> updatedCartItems) {
-        this.cartItems = updatedCartItems;
+        this.cartItems.clear();
+        this.cartItems.addAll(updatedCartItems);
         this.selectedItems.clear(); // Clear the selected items list as data has changed
-        notifyDataSetChanged(); // Notify the adapter to refresh the ListView
+        notifyDataSetChanged();
     }
 
     // Interface to notify selection changes

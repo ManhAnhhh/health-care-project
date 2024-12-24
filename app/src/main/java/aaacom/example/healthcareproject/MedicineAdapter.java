@@ -25,6 +25,11 @@ public class MedicineAdapter extends android.widget.BaseAdapter {
         this.layout = layout;
         this.medicines = medicines;
     }
+    public void updateList(List<Medicine> newList) {
+        medicines.clear();
+        medicines.addAll(newList);
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getCount() {

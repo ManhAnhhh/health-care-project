@@ -162,6 +162,32 @@ public class CartBuyMedicineActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+        lst.setOnItemClickListener((parent, view, position, id) -> {
+            // Single click logic here
+            Cart selectedCartItem = adapter.getItem(position);
+            Intent intent = new Intent(CartBuyMedicineActivity.this, HomeActivity.class);
+            intent.putExtra("cartItemId", selectedCartItem.getId());
+            startActivity(intent);
+        });
+
+        lst.setOnItemLongClickListener((parent, view, position, id) -> {
+            // Long click logic here
+            Cart selectedCartItem = adapter.getItem(position);
+            new AlertDialog.Builder(CartBuyMedicineActivity.this)
+                    .setTitle("Delete Item")
+                    .setMessage("Are you sure you want to delete this item?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        cartDao.deleteCartItem(selectedCartItem.getId());
+                        ArrayList<Cart> updatedCartItems = cartDao.getCartItems();
+                        adapter.updateData(updatedCartItems);
+                        adapter.notifyDataSetChanged();
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+            return true; // Indicate the long click was handled
+        });
+
+
     }
 
     private void updateTotalCost(ArrayList<Cart> selectedItems) {

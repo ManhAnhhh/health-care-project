@@ -19,6 +19,14 @@
         app:navigationIcon="@drawable/ic_back_arrow"
         app:title="Danh sách thuốc"
         app:titleTextColor="@android:color/white" />
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchViewBM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:queryHint="Tìm kiếm thuốc..."
+        android:outlineAmbientShadowColor="@android:color/white"/>
+
 
     <ListView
         android:id="@+id/listViewBM"

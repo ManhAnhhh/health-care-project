@@ -61,7 +61,6 @@ public class BuyMedicineDetailsActivity extends AppCompatActivity {
         txtvCategory = findViewById(R.id.txt_Category);
         txtvCongDung = findViewById(R.id.txt_CongDung);
         btnAddToCart = findViewById(R.id.buttonBMDAddToCart);
-        btnBack = findViewById(R.id.buttonBMDGoBackBuy);
 
         Intent intent = getIntent();
 
@@ -69,9 +68,6 @@ public class BuyMedicineDetailsActivity extends AppCompatActivity {
         tvTotalCost.setText("Giá thuốc: " + Commons.FormatDecimalCommon(intent.getFloatExtra("price",0.0f)) + "\n");
         GetMedicineById(intent.getIntExtra("id", 0));
 
-        btnBack.setOnClickListener(v -> {
-            finish();
-        });
 
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override

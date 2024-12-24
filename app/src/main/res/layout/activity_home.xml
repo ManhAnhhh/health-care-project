@@ -118,12 +118,12 @@
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="ĐẶT THUỐC"
+                            android:text="THUỐC"
                             android:textColor="#D3D3D3"
-                            android:textStyle="bold"
-                            android:textSize="20dp" />
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
                     </TableRow>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
